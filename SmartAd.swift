@@ -16,6 +16,9 @@ enum SmartAdType {
 }
 
 open class SmartAd: NSObject {
+    static let TEST_BANNER_FACEBOOK = "YOUR_PLACEMENT_ID"
+    static let TEST_BANNER_GOOGLE   = "ca-app-pub-3940256099942544/1712485313"
+    
     static var googleTestDevices:[Any]  = []
     static var googleRequest: GADRequest {
         get {

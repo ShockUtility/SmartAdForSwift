@@ -12,7 +12,7 @@ import FBAudienceNetwork
 import ShockExtension
 
 protocol SmartAdAwardDelegate: NSObjectProtocol {
-    func smartAdAwardDone(_ isAward: Bool)
+    func smartAdAwardDone(_ type: SmartAdType, _ isAwardShow: Bool, _ isAwardClick: Bool)
     func smartAdAwardFail(_ error: Error?)
 }
 
@@ -24,7 +24,9 @@ open class SmartAdAward: NSObject {
     fileprivate var facebookID   : String?
     fileprivate var isGoogleFirst: Bool = true
     fileprivate var loadingAlert : UIAlertController?
-    fileprivate var isAward      : Bool = false
+    
+    fileprivate var isAwardShow  : Bool = false
+    fileprivate var isAwardClick : Bool = false
     
     fileprivate var fRewardedVideoAd: FBRewardedVideoAd?
     
@@ -87,12 +89,12 @@ extension SmartAdAward: GADRewardBasedVideoAdDelegate {
     
     // 광고를 끝까지 시청해서 보상 완료
     public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd, didRewardUserWith reward: GADAdReward) {
-        isAward = true
+        isAwardShow = true
     }
     
     // 광고가 닫혀야 완료 콜백이 가능하다.
     public func rewardBasedVideoAdDidClose(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
-        delegate?.smartAdAwardDone(isAward)
+        delegate?.smartAdAwardDone(.google, isAwardShow, isAwardClick)
     }
 }
 
@@ -131,17 +133,17 @@ extension SmartAdAward: FBRewardedVideoAdDelegate {
     
     // 광고를 끝까지 시청해서 보상 완료
     public func rewardedVideoAdComplete(_ rewardedVideoAd: FBRewardedVideoAd) {
-        isAward = true
+        isAwardShow = true
     }
     
     // 설치 버튼 클릭 시
     public func rewardedVideoAdDidClick(_ rewardedVideoAd: FBRewardedVideoAd) {
-        printLog("설치")
+        isAwardClick = true
     }
     
     // 광고창을 닫을때 발생 (보상과 상관 없다)
     public func rewardedVideoAdDidClose(_ rewardedVideoAd: FBRewardedVideoAd) {
-        delegate?.smartAdAwardDone(isAward)
+        delegate?.smartAdAwardDone(.facebook, isAwardShow, isAwardClick)
     }
 }
 
