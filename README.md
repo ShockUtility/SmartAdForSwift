@@ -28,26 +28,26 @@ Source 폴더의 파일들을 개발중인 프로젝트에 직접 추가해서 �
 
 # 지원되는 광고 형식
 ## AdMob
-- NativeExpressAdView (네이티브 광고)
+- AdView (기본 베너)
 - InterstitialAd (전면 광고)
 - RewardedVideoAd (보상 광고)
 
 ## Audience Network
-- NativeAd (네이티브 광고)
+- AdView (기본 베너)
 - InterstitialAd (삽입 광고)
-- RewardedVideoAd (보상 광고) *** 지원 예정 ***
+- RewardedVideoAd (보상 광고)
 
 
 
 # 사용법
 
-## 네이티브 광고 (SmartAdView)
+## 기본 베너 (SmartAdBanner)
 ![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/screenshot/screen_01.png?raw=true)<br>
-StoryBoard 에서 뷰를 추가하고 커스텀 뷰를 'SmartAdView' 로 변경 후 프로퍼티만 셋팅하면 코딩 없이 바로 동작 됩니다.<br>
-반환값을 리턴받고 싶은 경우엔 delegate 를 설정하고 다음과 같이 SmartAdViewDelegate를 구현한다.
+StoryBoard 에서 뷰를 추가하고 커스텀 뷰를 'SmartAdBanner' 로 변경 후 프로퍼티만 셋팅하면 코딩 없이 바로 동작 됩니다.<br>
+반환값을 리턴받고 싶은 경우엔 delegate 를 설정하고 다음과 같이 SmartAdBannerDelegate를 구현한다.
 ```swift
-extension ViewController: SmartAdViewDelegate {
-    func smartAdBannerDone(_ view: SmartAdView) {
+extension ViewController: SmartAdBannerDelegate {
+    func smartAdBannerDone(_ view: SmartAdBanner) {
         // 광고가 표시됨
     }
 
@@ -57,9 +57,9 @@ extension ViewController: SmartAdViewDelegate {
 }
 ```
 
-`* 주의 : isAutoHeight 값이 적용되기 위해서는 SmartAdView 의 오토 레이아웃에 Height 값이 지정되어 있어야 합니다. 각 플렛폼의 광고가 로딩 완료 되면 광고 크기에 맞게 Height 값이 수정되며 실패할 경우 0으로 셋팅되어 사면에 표시되지 않습니다. `
+`* 주의 : isAutoHeight 값이 적용되기 위해서는 SmartAdBanner 의 오토 레이아웃에 Height 값이 지정되어 있어야 합니다. 각 플렛폼의 광고가 로딩 완료 되면 광고 크기에 맞게 Height 값이 수정되며 실패할 경우 0으로 셋팅되어 화면에 표시되지 않습니다. `
 <br>
-`* 주의 : SmartAdView 의 넓이는 최소한 AdMob 네이트브 광고의 최소 넓이인 280 이상을 지정해 줘야합니다.`
+`* 주의 : SmartAdBanner 는 크기 형식에 따라 최소 넓이가 300 또는 320 보다 커야 정상적으로 표시 됩니다.`
 
 ## 전면 광고 (SmartAdInterstitial)
 전면 광고를 호출하는 가장 간단한 코드는 다음과 같다.
@@ -114,8 +114,6 @@ extension ViewController: SmartAdAwardDelegate {
 }
 ```
 
-`* 주의 : 아직 Audience Network 의 보상 광고는 준비되지 않았다.`
-
 ## 얼럿 광고 (SmartAdAlertController)
 
 기본적인 알림 얼럿은 다음과 같고 기본 높이 값은 250 이며 상황에 맞게 설정해야 광고가 표시된다.
@@ -126,8 +124,6 @@ SmartAdAlertController.cirfirm(self, title: "title", googleID: "XXXXX", facebook
     }
 }
 ```
-
-`* 주의 : 내부에 SmartAdView 가 사용되기 때문에 광고 크기를 알맞게 설정하지 않을 경우 광고가 표시되지 않을 수 있다.`
 
 ## 테스트 장비 추가
 ```swift
@@ -143,7 +139,7 @@ SmartAd.IsShowAdFunc = { () in
     // --- 사용자가 임의로 작성함 ---
     let def = UserDefaults.standard
     let isShowAd def.bool(forKey: "isShowAd")
-    return ([SmartAdView.self, SmartAdInterstitial.self, SmartAdAward.self, SmartAdAlertController.self], isShowAd)
+    return ([SmartAdBanner.self, SmartAdInterstitial.self, SmartAdAward.self, SmartAdAlertController.self], isShowAd)
     // --- 사용자가 임의로 작성함 ---
 }
 ```
