@@ -34,7 +34,7 @@ open class SmartAdInterstitial: NSObject {
     var isLoadAfterShow         = false
     
     @objc
-    public convenience init(_ controller: UIViewController, googleID: String?, facebookID: String?, isGoogleFirst: Bool = true) {
+    public convenience init(_ controller: UIViewController, googleID: String?, facebookID: String?, isGoogleFirst: Bool) {
         self.init()
         
         self.controller    = controller
@@ -42,6 +42,11 @@ open class SmartAdInterstitial: NSObject {
         self.facebookID    = facebookID
         self.isGoogleFirst = isGoogleFirst
         self.delegate      = controller as? SmartAdInterstitialDelegate
+    }
+    
+    @objc
+    public convenience init(_ controller: UIViewController, googleID: String?, facebookID: String?) {
+        self.init(controller, googleID: googleID, facebookID: facebookID, isGoogleFirst: arc4random_uniform(2)==0)
     }
     
     @objc
@@ -64,10 +69,12 @@ open class SmartAdInterstitial: NSObject {
         if let gAd = gInterstitial, gAd.isReady {
             gAd.present(fromRootViewController: self.controller)
             self.delegate?.smartAdInterstitialDone()
+            gInterstitial = nil
             return true
         } else if let fAd = fInterstitial, fAd.isAdValid {
             fAd.show(fromRootViewController: self.controller)
             self.delegate?.smartAdInterstitialDone()
+            fInterstitial = nil
             return true
         }
         return false
