@@ -13,8 +13,8 @@ import FBAudienceNetwork
 import ShockExtension
 
 protocol SmartAdInterstitialDelegate: NSObjectProtocol {
-    func SmartAdInterstitialDone()
-    func SmartAdInterstitialFail(_ error: Error?)
+    func smartAdInterstitialDone()
+    func smartAdInterstitialFail(_ error: Error?)
 }
 
 open class SmartAdInterstitial: NSObject {
@@ -63,11 +63,11 @@ open class SmartAdInterstitial: NSObject {
     public func showLoadedAd() -> Bool {
         if let gAd = gInterstitial, gAd.isReady {
             gAd.present(fromRootViewController: self.controller)
-            self.delegate?.SmartAdInterstitialDone()
+            self.delegate?.smartAdInterstitialDone()
             return true
         } else if let fAd = fInterstitial, fAd.isAdValid {
             fAd.show(fromRootViewController: self.controller)
-            self.delegate?.SmartAdInterstitialDone()
+            self.delegate?.smartAdInterstitialDone()
             return true
         }
         return false
@@ -97,7 +97,7 @@ extension SmartAdInterstitial: GADInterstitialDelegate {
         if isGoogleFirst {
             self.loadFacebook()
         } else {
-            delegate?.SmartAdInterstitialFail(error)
+            delegate?.smartAdInterstitialFail(error)
         }
     }
 }
@@ -123,7 +123,7 @@ extension SmartAdInterstitial: FBInterstitialAdDelegate {
         if !isGoogleFirst {
             self.loadGoogle()
         } else {
-            delegate?.SmartAdInterstitialFail(nil)
+            delegate?.smartAdInterstitialFail(nil)
         }
     }
 }

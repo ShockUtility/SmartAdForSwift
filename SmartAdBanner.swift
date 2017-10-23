@@ -67,6 +67,10 @@ open class SmartAdBanner: UIView {
     
     @objc
     public func showAd() {
+        if isRandomAD {
+            isGoogleFirst = arc4random_uniform(2)==0
+        }
+        
         if SmartAd.IsShowAd(self) {
             if let gID = googleAdID {
                 gAdView = GADBannerView()

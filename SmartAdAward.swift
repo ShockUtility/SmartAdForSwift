@@ -12,8 +12,8 @@ import FBAudienceNetwork
 import ShockExtension
 
 protocol SmartAdAwardDelegate: NSObjectProtocol {
-    func SmartAdAwardDone(_ isAward: Bool)
-    func SmartAdAwardFail(_ error: Error?)
+    func smartAdAwardDone(_ isAward: Bool)
+    func smartAdAwardFail(_ error: Error?)
 }
 
 open class SmartAdAward: NSObject {
@@ -62,7 +62,7 @@ extension SmartAdAward: GADRewardBasedVideoAdDelegate {
             GADRewardBasedVideoAd.sharedInstance().load(SmartAd.googleRequest, withAdUnitID: id)
         } else {
             loadingAlert?.dismiss(animated: true, completion: {
-                self.delegate?.SmartAdAwardFail(nil)
+                self.delegate?.smartAdAwardFail(nil)
             })
         }
     }
@@ -78,7 +78,7 @@ extension SmartAdAward: GADRewardBasedVideoAdDelegate {
     public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd, didFailToLoadWithError error: Error) {
         if !isGoogleFirst {
             loadingAlert?.dismiss(animated: true, completion: {
-                self.delegate?.SmartAdAwardFail(error)
+                self.delegate?.smartAdAwardFail(error)
             })
         } else {
             showFacebook()
@@ -92,7 +92,7 @@ extension SmartAdAward: GADRewardBasedVideoAdDelegate {
     
     // 광고가 닫혀야 완료 콜백이 가능하다.
     public func rewardBasedVideoAdDidClose(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
-        delegate?.SmartAdAwardDone(isAward)
+        delegate?.smartAdAwardDone(isAward)
     }
 }
 
@@ -106,7 +106,7 @@ extension SmartAdAward: FBRewardedVideoAdDelegate {
             fRewardedVideoAd?.load()
         } else {
             loadingAlert?.dismiss(animated: true, completion: {
-                self.delegate?.SmartAdAwardFail(nil)
+                self.delegate?.smartAdAwardFail(nil)
             })
         }
     }
@@ -122,7 +122,7 @@ extension SmartAdAward: FBRewardedVideoAdDelegate {
     public func rewardedVideoAd(_ rewardedVideoAd: FBRewardedVideoAd, didFailWithError error: Error) {
         if isGoogleFirst {
             loadingAlert?.dismiss(animated: true, completion: {
-                self.delegate?.SmartAdAwardFail(error)
+                self.delegate?.smartAdAwardFail(error)
             })
         } else {
             showGoogle()
@@ -141,7 +141,7 @@ extension SmartAdAward: FBRewardedVideoAdDelegate {
     
     // 광고창을 닫을때 발생 (보상과 상관 없다)
     public func rewardedVideoAdDidClose(_ rewardedVideoAd: FBRewardedVideoAd) {
-        delegate?.SmartAdAwardDone(isAward)
+        delegate?.smartAdAwardDone(isAward)
     }
 }
 
