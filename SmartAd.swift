@@ -15,18 +15,6 @@ enum SmartAdType {
     case facebook
 }
 
-//open class SmartAdObjc: NSObject {
-//    @objc
-//    class public func addGoogleTestDevice(ids: [String]) {
-//        SmartAd.addTestDevice(type: .google, ids: [ids])
-//    }
-//
-//    @objc
-//    class public func addFacebookTestDevice(ids: [String]) {
-//        SmartAd.addTestDevice(type: .facebook, ids: [ids])
-//    }
-//}
-
 open class SmartAd: NSObject {
     static var googleTestDevices:[Any]  = []
     static var googleRequest: GADRequest {
