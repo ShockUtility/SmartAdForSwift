@@ -65,6 +65,7 @@ open class SmartAdBanner: UIView {
         }
     }
     
+    @objc
     public func showAd() {
         if SmartAd.IsShowAd(self) {
             if let gID = googleAdID {
