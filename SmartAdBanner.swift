@@ -11,6 +11,7 @@ import GoogleMobileAds
 import FBAudienceNetwork
 import ShockExtension
 
+@objc
 public protocol SmartAdBannerDelegate: NSObjectProtocol {
     func smartAdBannerDone(_ view: SmartAdBanner)
     func smartAdBannerFail(_ error: Error?)
@@ -18,12 +19,14 @@ public protocol SmartAdBannerDelegate: NSObjectProtocol {
 
 open class SmartAdBanner: UIView {
     
+    @IBOutlet open weak var delegate: SmartAdBannerDelegate?
+/*
     #if TARGET_INTERFACE_BUILDER
     @IBOutlet open weak var delegate: AnyObject?
     #else
     open weak var delegate: SmartAdBannerDelegate?
     #endif
-    
+*/
     @IBInspectable public var googleAdID         : String?
     @IBInspectable public var facebookAdID       : String?
     @IBInspectable public var isAwakeShow        : Bool    = true

@@ -4,13 +4,19 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmartAdAlertController" customModule="SmartAd" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmartAdAlertController" customModule="MouseAgent" customModuleProvider="target">
             <connections>
+                <outlet property="btnCancel" destination="WTr-LX-4o7" id="BBP-U7-1sM"/>
+                <outlet property="btnOK" destination="PL6-eI-gUJ" id="Ojr-rI-5VF"/>
+                <outlet property="lblTitle" destination="TDf-zF-Krj" id="sYz-BJ-CJe"/>
+                <outlet property="smartAdBanner" destination="cmP-TM-eTR" id="Zfy-2j-2iv"/>
                 <outlet property="view" destination="73J-sE-cAu" id="hTw-SH-Egp"/>
+                <outlet property="vwLoading" destination="WdC-FU-L5E" id="xP4-7v-ikR"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -38,7 +44,7 @@
                                 <constraint firstAttribute="height" constant="37" id="Na2-Nh-bqH"/>
                             </constraints>
                         </activityIndicatorView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmP-TM-eTR" customClass="SmartAdBanner" customModule="SmartAd">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmP-TM-eTR" customClass="SmartAdBanner" customModule="MouseAgent" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="50" width="300" height="0.0"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -47,10 +53,10 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isGoogleFirst" value="YES"/>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isAwakeShow" value="NO"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="constraintHeightAfterFail">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="4sl-YF-guA"/>
+                            </connections>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PL6-eI-gUJ">
                             <rect key="frame" x="0.0" y="51" width="149" height="30"/>
@@ -62,6 +68,9 @@
                             <state key="normal" title="OK">
                                 <color key="titleColor" red="0.49188775429999998" green="0.46259574050000002" blue="0.71326609249999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
+                            <connections>
+                                <action selector="onClickOK:" destination="-1" eventType="touchUpInside" id="K9p-FJ-3Pv"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTr-LX-4o7">
                             <rect key="frame" x="150" y="51" width="150" height="30"/>
@@ -73,6 +82,9 @@
                             <state key="normal" title="Cancel">
                                 <color key="titleColor" red="0.49188775429999998" green="0.46259574050000002" blue="0.71326609249999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
+                            <connections>
+                                <action selector="onClickCancel:" destination="-1" eventType="touchUpInside" id="hiy-Ud-NfZ"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

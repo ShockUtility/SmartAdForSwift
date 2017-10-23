@@ -20,17 +20,6 @@ open class SmartAdAlertController: UIViewController {
     fileprivate var adHeight: CGFloat = 250.0
     fileprivate var alertButtonDelayMilliseconds: Double = 3.0
     
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    init(title: String, adHeight: CGFloat) {
-        super.init(nibName: "SmartAdAlertController", bundle: nil)
-        
-        self.title = title
-        self.adHeight = adHeight
-    }
-    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,6 +62,31 @@ open class SmartAdAlertController: UIViewController {
     open func setAlertButtonDelayMilliseconds(_ milliseconds: Double) {
         alertButtonDelayMilliseconds = milliseconds
     }
+    
+    class func confirm(_ controller: UIViewController,
+                       title: String,
+                       googleID: String?, facebookID: String?,
+                       isGoogleFirst: Bool = true, completed: @escaping (_ isOK: Bool) -> Void)
+    {
+        let alert = SmartAdAlertController()
+        alert.title = title
+        alert.modalPresentationStyle = .overCurrentContext
+        alert.modalTransitionStyle = .crossDissolve
+        
+        controller.present(alert, animated: true) {
+            if SmartAd.IsShowAd(self) {
+                alert.smartAdBanner.isRandomAD   = true
+                alert.smartAdBanner.googleAdID   = googleID
+                alert.smartAdBanner.facebookAdID = facebookID
+                alert.smartAdBanner.showAd()
+            } else {
+                alert.btnOK.isEnabled = true
+                alert.btnCancel.isEnabled = true
+            }
+        }
+        
+        alert.completedCallback = completed
+    }
 }
 
 extension SmartAdAlertController: SmartAdBannerDelegate {
@@ -86,36 +100,6 @@ extension SmartAdAlertController: SmartAdBannerDelegate {
         btnOK.isEnabled = true
         btnCancel.isEnabled = true
         vwLoading.isHidden = true
-    }
-}
-
-extension SmartAdAlertController { // Global
-    class func confirm(_ controller: UIViewController,
-                       title: String,
-                       googleID: String?, facebookID: String?,
-                       adHeight: CGFloat = 250,
-                       isGoogleFirst: Bool = true, completed: @escaping (_ isOK: Bool) -> Void)
-    {
-        let alert = SmartAdAlertController(title: title, adHeight: adHeight)
-        alert.title = title
-        alert.adHeight = adHeight
-        
-        alert.modalPresentationStyle = .overCurrentContext
-        alert.modalTransitionStyle = .crossDissolve
-        
-        controller.present(alert, animated: true) {
-            if SmartAd.IsShowAd(self) {
-                alert.smartAdBanner.isGoogleFirst = isGoogleFirst
-                alert.smartAdBanner.googleAdID    = googleID
-                alert.smartAdBanner.facebookAdID  = facebookID
-                alert.smartAdBanner.showAd()
-            } else {
-                alert.btnOK.isEnabled = true
-                alert.btnCancel.isEnabled = true
-            }
-        }
-        
-        alert.completedCallback = completed
     }
 }
 
