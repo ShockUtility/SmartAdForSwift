@@ -81,9 +81,9 @@ Here is the example code that calls the interstitial.
 var interstitialAd: SmartAdInterstitial?
 
 override func viewDidLoad() {
-    super.viewDidLoad()
+	super.viewDidLoad()
     
-    interstitialAd = SmartAdInterstitial(self, adOrder: .random,
+	interstitialAd = SmartAdInterstitial(self, adOrder: .random,
                                          googleID: "googleID", facebookID: "facebookID")
 	interstitialAd?.loadAd()
 }
