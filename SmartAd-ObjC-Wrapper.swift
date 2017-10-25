@@ -11,6 +11,10 @@ import GoogleMobileAds
 import FBAudienceNetwork
 
 extension SmartAd { // ObjC
+    @objc public static let _ORDER_RANDOM   = 0
+    @objc public static let _ORDER_GOOGLE   = 1
+    @objc public static let _ORDER_FACEBOOK = 2
+    
     @objc
     public static var _TEST_BANNER_FACEBOOK: String {
         return TEST_BANNER_FACEBOOK
