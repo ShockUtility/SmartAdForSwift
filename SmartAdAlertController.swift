@@ -15,6 +15,8 @@ open class SmartAdAlertController: UIViewController {
     @IBOutlet weak var btnOK: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var vwLoading: UIActivityIndicatorView!
+    @IBOutlet weak var widthOK: NSLayoutConstraint!
+    
     
     fileprivate var completedCallback: ((_ isOK: Bool) -> Void)?
     fileprivate var adHeight: CGFloat = 250.0
@@ -24,8 +26,6 @@ open class SmartAdAlertController: UIViewController {
         super.viewDidLoad()
         
         lblTitle.text = self.title
-        btnOK.setTitle("OK".localized, for: .normal)
-        btnCancel.setTitle("Cancel".localized, for: .normal)
         
         if SmartAd.IsShowAd(self) {
             self.vwLoading.isHidden = false
@@ -63,10 +63,11 @@ open class SmartAdAlertController: UIViewController {
         alertButtonDelayMilliseconds = milliseconds
     }
     
-    class func confirm(_ controller: UIViewController,
-                       title: String,
-                       googleID: String?, facebookID: String?,
-                       isGoogleFirst: Bool = true, completed: @escaping (_ isOK: Bool) -> Void)
+    class func alert(_ controller: UIViewController,
+                     title: String,
+                     googleID: String?, facebookID: String?,
+                     isGoogleFirst: Bool = true,
+                     completed: @escaping (_ isOK: Bool) -> Void)
     {
         let alert = SmartAdAlertController()
         alert.title = title
@@ -74,6 +75,72 @@ open class SmartAdAlertController: UIViewController {
         alert.modalTransitionStyle = .crossDissolve
         
         controller.present(alert, animated: true) {
+            alert.widthOK.constant = 300
+            alert.btnOK.setTitle("OK".localized, for: .normal)
+            alert.btnOK.isHidden = false
+            
+            if SmartAd.IsShowAd(self) {
+                alert.smartAdBanner.isRandomAD   = true
+                alert.smartAdBanner.googleAdID   = googleID
+                alert.smartAdBanner.facebookAdID = facebookID
+                alert.smartAdBanner.showAd()
+            } else {
+                alert.btnOK.isEnabled = true
+            }
+        }
+        
+        alert.completedCallback = completed
+    }
+    
+    class func confirm(_ controller: UIViewController,
+                       title: String,
+                       googleID: String?, facebookID: String?,
+                       isGoogleFirst: Bool = true,
+                       completed: @escaping (_ isOK: Bool) -> Void)
+    {
+        let alert = SmartAdAlertController()
+        alert.title = title
+        alert.modalPresentationStyle = .overCurrentContext
+        alert.modalTransitionStyle = .crossDissolve
+        
+        controller.present(alert, animated: true) {
+            alert.btnOK.setTitle("OK".localized, for: .normal)
+            alert.btnCancel.setTitle("Cancel".localized, for: .normal)
+            alert.btnOK.isHidden = false
+            alert.btnCancel.isHidden = false
+            
+            if SmartAd.IsShowAd(self) {
+                alert.smartAdBanner.isRandomAD   = true
+                alert.smartAdBanner.googleAdID   = googleID
+                alert.smartAdBanner.facebookAdID = facebookID
+                alert.smartAdBanner.showAd()
+            } else {
+                alert.btnOK.isEnabled = true
+                alert.btnCancel.isEnabled = true
+            }
+        }
+        
+        alert.completedCallback = completed
+    }
+    
+    class func select(_ controller: UIViewController,
+                      title: String,
+                      titleOK: String, titleCancel: String,
+                      googleID: String?, facebookID: String?,
+                      isGoogleFirst: Bool = true,
+                      completed: @escaping (_ isOK: Bool) -> Void)
+    {
+        let alert = SmartAdAlertController()
+        alert.title = title
+        alert.modalPresentationStyle = .overCurrentContext
+        alert.modalTransitionStyle = .crossDissolve
+        
+        controller.present(alert, animated: true) {
+            alert.btnOK.setTitle(titleOK, for: .normal)
+            alert.btnCancel.setTitle(titleCancel, for: .normal)
+            alert.btnOK.isHidden = false
+            alert.btnCancel.isHidden = false
+            
             if SmartAd.IsShowAd(self) {
                 alert.smartAdBanner.isRandomAD   = true
                 alert.smartAdBanner.googleAdID   = googleID

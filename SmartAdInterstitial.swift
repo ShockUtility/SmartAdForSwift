@@ -50,7 +50,7 @@ open class SmartAdInterstitial: NSObject {
     }
     
     @objc
-    public func loadAd(isLoadAfterShow: Bool = true, delayMilliseconds: Double = 1.5) {
+    public func loadAd(isLoadAfterShow: Bool = true, delayMilliseconds: Double = 0.0) {
         if SmartAd.IsShowAd(self) {
             self.isLoadAfterShow = isLoadAfterShow
             self.delayMilliseconds = delayMilliseconds
@@ -126,7 +126,7 @@ extension SmartAdInterstitial: FBInterstitialAdDelegate {
         }
     }
     
-    public func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
+    public func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
         if !isGoogleFirst {
             self.loadGoogle()
         } else {

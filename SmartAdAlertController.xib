@@ -4,12 +4,11 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmartAdAlertController" customModule="MouseAgent" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmartAdAlertController" customModule="SmartAdDemo" customModuleProvider="target">
             <connections>
                 <outlet property="btnCancel" destination="WTr-LX-4o7" id="BBP-U7-1sM"/>
                 <outlet property="btnOK" destination="PL6-eI-gUJ" id="Ojr-rI-5VF"/>
@@ -17,6 +16,7 @@
                 <outlet property="smartAdBanner" destination="cmP-TM-eTR" id="Zfy-2j-2iv"/>
                 <outlet property="view" destination="73J-sE-cAu" id="hTw-SH-Egp"/>
                 <outlet property="vwLoading" destination="WdC-FU-L5E" id="xP4-7v-ikR"/>
+                <outlet property="widthOK" destination="i0c-OU-Za7" id="cPx-Sq-0ce"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCw-fr-DIG">
-                    <rect key="frame" x="37" y="293" width="300" height="81"/>
+                    <rect key="frame" x="37" y="288.5" width="300" height="90"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDf-zF-Krj">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -37,14 +37,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WdC-FU-L5E">
-                            <rect key="frame" x="131" y="22" width="37" height="37"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="37" id="LMn-J1-Vgj"/>
-                                <constraint firstAttribute="height" constant="37" id="Na2-Nh-bqH"/>
-                            </constraints>
-                        </activityIndicatorView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmP-TM-eTR" customClass="SmartAdBanner" customModule="MouseAgent" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmP-TM-eTR" customClass="SmartAdBanner" customModule="SmartAdDemo" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="50" width="300" height="0.0"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -58,34 +51,41 @@
                                 <outlet property="delegate" destination="-1" id="4sl-YF-guA"/>
                             </connections>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PL6-eI-gUJ">
-                            <rect key="frame" x="0.0" y="51" width="149" height="30"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PL6-eI-gUJ">
+                            <rect key="frame" x="0.0" y="50" width="149" height="40"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="45p-3l-8rb"/>
+                                <constraint firstAttribute="height" constant="40" id="45p-3l-8rb"/>
                                 <constraint firstAttribute="width" constant="149" id="i0c-OU-Za7"/>
                             </constraints>
-                            <state key="normal" title="OK">
+                            <state key="normal">
                                 <color key="titleColor" red="0.49188775429999998" green="0.46259574050000002" blue="0.71326609249999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
                             <connections>
                                 <action selector="onClickOK:" destination="-1" eventType="touchUpInside" id="K9p-FJ-3Pv"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTr-LX-4o7">
-                            <rect key="frame" x="150" y="51" width="150" height="30"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTr-LX-4o7">
+                            <rect key="frame" x="150" y="50" width="150" height="40"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="150" id="eAr-U9-3qG"/>
-                                <constraint firstAttribute="height" constant="30" id="zA2-Nx-7Fk"/>
+                                <constraint firstAttribute="height" constant="40" id="zA2-Nx-7Fk"/>
                             </constraints>
-                            <state key="normal" title="Cancel">
+                            <state key="normal">
                                 <color key="titleColor" red="0.49188775429999998" green="0.46259574050000002" blue="0.71326609249999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
                             <connections>
                                 <action selector="onClickCancel:" destination="-1" eventType="touchUpInside" id="hiy-Ud-NfZ"/>
                             </connections>
                         </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WdC-FU-L5E">
+                            <rect key="frame" x="131" y="26.5" width="37" height="37"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="37" id="LMn-J1-Vgj"/>
+                                <constraint firstAttribute="height" constant="37" id="Na2-Nh-bqH"/>
+                            </constraints>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -95,7 +95,7 @@
                         <constraint firstItem="cmP-TM-eTR" firstAttribute="top" secondItem="bCw-fr-DIG" secondAttribute="top" constant="50" id="As7-rY-ZjL"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" id="GCe-Ia-tI3"/>
                         <constraint firstItem="cmP-TM-eTR" firstAttribute="leading" secondItem="bCw-fr-DIG" secondAttribute="leading" id="Nqy-on-rp0"/>
-                        <constraint firstAttribute="bottom" secondItem="cmP-TM-eTR" secondAttribute="bottom" constant="31" id="Q3c-5N-icj"/>
+                        <constraint firstAttribute="bottom" secondItem="cmP-TM-eTR" secondAttribute="bottom" constant="40" id="Q3c-5N-icj"/>
                         <constraint firstItem="TDf-zF-Krj" firstAttribute="top" secondItem="bCw-fr-DIG" secondAttribute="top" id="U3H-o1-Mjl"/>
                         <constraint firstAttribute="bottom" secondItem="PL6-eI-gUJ" secondAttribute="bottom" id="WcR-sD-pX8"/>
                         <constraint firstAttribute="width" constant="300" id="aCh-am-CFk"/>
