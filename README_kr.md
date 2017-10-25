@@ -148,7 +148,7 @@ public func showAd()
 ```
 
 ## 얼럿 광고 (SmartAdAlertController)
-![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_01.png?raw=true)
+![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_02.png?raw=true)
 확인 버튼만 있는 알림 얼럿
 ```swift
 SmartAdAlertController.alert(self,
