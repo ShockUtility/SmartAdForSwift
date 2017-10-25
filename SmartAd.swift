@@ -10,9 +10,33 @@ import Foundation
 import GoogleMobileAds
 import FBAudienceNetwork
 
-enum SmartAdType {
-    case google
-    case facebook
+public enum SmartAdType:Int {
+    case google   = 1
+    case facebook = 2
+}
+
+public enum SmartAdOrder:Int {
+    case random   = 0
+    case google   = 1
+    case facebook = 2
+    
+    init(named: String) {
+        switch named.lowercased() {
+        case "google"  : self = .google
+        case "facebook": self = .facebook
+        default        : self = .random  
+        }
+    }
+    
+    var adType: SmartAdType {
+        get {
+            switch self {
+            case .google  : return .google
+            case .facebook: return .facebook
+            case .random  : return (arc4random_uniform(2) == 0) ? .google : .facebook
+            }
+        }
+    }
 }
 
 open class SmartAd: NSObject {
@@ -30,7 +54,7 @@ open class SmartAd: NSObject {
         }
     }
     
-    class func addTestDevice(type:SmartAdType, ids: [Any]) {
+    class func addTestDevice(type: SmartAdType, ids: [Any]) {
         switch type {
         case .google:
             googleTestDevices = ids
@@ -41,17 +65,8 @@ open class SmartAd: NSObject {
         }
     }
     
-    @objc
-    public class func addTestDevice(isGoogle: Bool, ids: [String]) {
-        if isGoogle {
-            googleTestDevices = ids
-        } else {
-            FBAdSettings.addTestDevices(ids)
-        }
-    }
-    
     // 광고를 실행하거나 막기 위해서 커스텀 평션을 만들어서 붙여줄 수 있다
-    // 예) 광고 구매 인앱을 결제한 경우 다음 함수를 대입해 주면 광고가 차단된다.
+    // 예) 광고 구매 인앱을 결제한 경우 다음 함수를 대입해 주면 광고가 차단된다.    
     static var IsShowAdFunc: (() -> (validClasses:[AnyClass], isShow: Bool))?
     static func IsShowAd(_ owner: AnyObject) -> Bool {
         if let ret = IsShowAdFunc?() {                                              // 함수가 존재한다.
@@ -62,6 +77,8 @@ open class SmartAd: NSObject {
         return true
     }
 }
+
+
 
 
 

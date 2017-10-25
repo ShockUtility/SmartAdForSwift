@@ -12,50 +12,49 @@ import GoogleMobileAds
 import FBAudienceNetwork
 import ShockExtension
 
-protocol SmartAdInterstitialDelegate: NSObjectProtocol {
+@objc
+public protocol SmartAdInterstitialDelegate: NSObjectProtocol {
     func smartAdInterstitialDone()
     func smartAdInterstitialFail(_ error: Error?)
 }
 
 open class SmartAdInterstitial: NSObject {
     
-    fileprivate var controller  : UIViewController!
-    fileprivate var googleID    : String?
-    fileprivate var facebookID  : String?
+    fileprivate var delegate            : SmartAdInterstitialDelegate?
     
-    var delegate: SmartAdInterstitialDelegate?
+    fileprivate var controller          : UIViewController!
+    fileprivate var adType              : SmartAdType!
+    fileprivate var googleID            : String?
+    fileprivate var facebookID          : String?
     
-    var isGoogleFirst           : Bool!
-    var delayMilliseconds       : Double!
+    fileprivate var delayMilliseconds   : Double!
+    fileprivate var isShowAfterLoad     = false
     
-    var gInterstitial: GADInterstitial?
-    var fInterstitial: FBInterstitialAd?
+    fileprivate var gInterstitial       : GADInterstitial?
+    fileprivate var fInterstitial       : FBInterstitialAd?
     
-    var isLoadAfterShow         = false
-    
-    @objc
-    public convenience init(_ controller: UIViewController, googleID: String?, facebookID: String?, isGoogleFirst: Bool) {
+    public convenience init(_ controller: UIViewController, adOrder: SmartAdOrder, googleID: String?, facebookID: String?, isShowAfterLoad: Bool = true) {
         self.init()
         
-        self.controller    = controller
-        self.googleID      = googleID
-        self.facebookID    = facebookID
-        self.isGoogleFirst = isGoogleFirst
-        self.delegate      = controller as? SmartAdInterstitialDelegate
+        self.delegate        = controller as? SmartAdInterstitialDelegate
+        self.controller      = controller
+        self.adType          = adOrder.adType
+        self.googleID        = googleID
+        self.facebookID      = facebookID
+        self.isShowAfterLoad = isShowAfterLoad
+                
+        loadAd()
     }
     
-    @objc
-    public convenience init(_ controller: UIViewController, googleID: String?, facebookID: String?) {
-        self.init(controller, googleID: googleID, facebookID: facebookID, isGoogleFirst: arc4random_uniform(2)==0)
+    public convenience init(_ controller: UIViewController, adOrder: SmartAdOrder, googleID: String?, facebookID: String?) {
+        self.init(controller, adOrder: adOrder, googleID: googleID, facebookID: facebookID)
     }
     
-    @objc
-    public func loadAd(isLoadAfterShow: Bool = true, delayMilliseconds: Double = 0.0) {
+    public func loadAd(delayMilliseconds: Double = 0.0) {
         if SmartAd.IsShowAd(self) {
-            self.isLoadAfterShow = isLoadAfterShow
             self.delayMilliseconds = delayMilliseconds
 
-            if isGoogleFirst {
+            if adType == .google {
                 loadGoogle()
             } else {
                 loadFacebook()
@@ -63,9 +62,8 @@ open class SmartAdInterstitial: NSObject {
         }
     }
     
-    @objc
     @discardableResult
-    public func showLoadedAd() -> Bool {
+    public func showAd() -> Bool {
         if let gAd = gInterstitial, gAd.isReady {
             gAd.present(fromRootViewController: self.controller)
             self.delegate?.smartAdInterstitialDone()
@@ -91,9 +89,9 @@ extension SmartAdInterstitial: GADInterstitialDelegate {
     }
     
     public func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        if isLoadAfterShow {
+        if isShowAfterLoad {
             DispatchQueue.main.asyncAfter(deadline: .now() + delayMilliseconds) {
-                self.showLoadedAd()
+                self.showAd()
             }
         }
     }
@@ -101,7 +99,7 @@ extension SmartAdInterstitial: GADInterstitialDelegate {
     public func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
         printLog(error.localizedDescription)
         
-        if isGoogleFirst {
+        if adType == .google {
             self.loadFacebook()
         } else {
             delegate?.smartAdInterstitialFail(error)
@@ -119,23 +117,23 @@ extension SmartAdInterstitial: FBInterstitialAdDelegate {
     }
     
     public func interstitialAdDidLoad(_ interstitialAd: FBInterstitialAd) {
-        if isLoadAfterShow {
+        if isShowAfterLoad {
             DispatchQueue.main.asyncAfter(deadline: .now() + delayMilliseconds) {
-                self.showLoadedAd()
+                self.showAd()
             }
         }
     }
     
     public func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
-        if !isGoogleFirst {
+        printLog(error.localizedDescription)
+        
+        if adType == .facebook {
             self.loadGoogle()
         } else {
             delegate?.smartAdInterstitialFail(nil)
         }
     }
 }
-
-
 
 
 

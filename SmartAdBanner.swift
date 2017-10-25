@@ -20,21 +20,19 @@ public protocol SmartAdBannerDelegate: NSObjectProtocol {
 open class SmartAdBanner: UIView {
     
     @IBOutlet open weak var delegate: SmartAdBannerDelegate?
-/*
-    #if TARGET_INTERFACE_BUILDER
-    @IBOutlet open weak var delegate: AnyObject?
-    #else
-    open weak var delegate: SmartAdBannerDelegate?
-    #endif
-*/
+
+    @IBInspectable public var adOrderString      : String?  {
+        willSet {
+            adType = SmartAdOrder(named: newValue?.lowercased() ?? "").adType
+        }
+    }
     @IBInspectable public var googleAdID         : String?
     @IBInspectable public var facebookAdID       : String?
     @IBInspectable public var isAwakeShow        : Bool    = true
-    @IBInspectable public var isGoogleFirst      : Bool    = true
-    @IBInspectable public var isRandomAD         : Bool    = false
-    @IBInspectable public var isHiddenAfterFail  : Bool    = true
+    @IBInspectable public var isHideAfterFail    : Bool    = true
     @IBInspectable public var isAutoHeight       : Bool    = true
     
+    public var adType          : SmartAdType = SmartAdOrder.random.adType
     fileprivate var gAdView    : GADBannerView?
     fileprivate var fAdView    : FBAdView?
     
@@ -62,18 +60,13 @@ open class SmartAdBanner: UIView {
     
     override open func awakeFromNib() {
         super.awakeFromNib()
-        
+
         if isAwakeShow {
             showAd()
         }
     }
     
-    @objc
     public func showAd() {
-        if isRandomAD {
-            isGoogleFirst = arc4random_uniform(2)==0
-        }
-        
         if SmartAd.IsShowAd(self) {
             if let gID = googleAdID {
                 gAdView = GADBannerView()
@@ -96,7 +89,7 @@ open class SmartAdBanner: UIView {
             if gAdView==nil && fAdView==nil {
                 onFail(nil)
             } else {
-                if isGoogleFirst && gAdView != nil {
+                if adType == .google, gAdView != nil {
                     gAdView?.load(SmartAd.googleRequest)
                 } else if fAdView != nil {
                     fAdView?.loadAd()
@@ -117,7 +110,7 @@ open class SmartAdBanner: UIView {
     }
     
     fileprivate func onFail(_ error: Error?) {
-        self.isHidden = isHiddenAfterFail
+        self.isHidden = isHideAfterFail
         delegate?.smartAdBannerFail(error)
     }
 }
@@ -129,8 +122,11 @@ extension SmartAdBanner: GADBannerViewDelegate {
     
     public func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
         printLog(error.localizedDescription)
+        bannerView.removeFromSuperview()
+        bannerView.delegate = nil
+        gAdView = nil
         
-        if isGoogleFirst, fAdView != nil {
+        if adType == .google, fAdView != nil {
             fAdView?.loadAd()
         } else {
             onFail(error)
@@ -145,14 +141,18 @@ extension SmartAdBanner: FBAdViewDelegate {
     
     public func adView(_ adView: FBAdView, didFailWithError error: Error) {
         printLog(error.localizedDescription)
+        adView.removeFromSuperview()
+        adView.delegate = nil
+        fAdView = nil
         
-        if !isGoogleFirst, gAdView != nil {
+        if adType == .facebook, gAdView != nil {
             gAdView?.load(SmartAd.googleRequest)
         } else {
             onFail(error)
         }
     }
 }
+
 
 
 

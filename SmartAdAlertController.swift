@@ -64,9 +64,9 @@ open class SmartAdAlertController: UIViewController {
     }
     
     class func alert(_ controller: UIViewController,
-                     title: String,
+                     adOrder: SmartAdOrder,
                      googleID: String?, facebookID: String?,
-                     isGoogleFirst: Bool = true,
+                     title: String,
                      completed: @escaping (_ isOK: Bool) -> Void)
     {
         let alert = SmartAdAlertController()
@@ -80,7 +80,7 @@ open class SmartAdAlertController: UIViewController {
             alert.btnOK.isHidden = false
             
             if SmartAd.IsShowAd(self) {
-                alert.smartAdBanner.isRandomAD   = true
+                alert.smartAdBanner.adType       = adOrder.adType
                 alert.smartAdBanner.googleAdID   = googleID
                 alert.smartAdBanner.facebookAdID = facebookID
                 alert.smartAdBanner.showAd()
@@ -93,9 +93,9 @@ open class SmartAdAlertController: UIViewController {
     }
     
     class func confirm(_ controller: UIViewController,
-                       title: String,
+                       adOrder: SmartAdOrder,
                        googleID: String?, facebookID: String?,
-                       isGoogleFirst: Bool = true,
+                       title: String,
                        completed: @escaping (_ isOK: Bool) -> Void)
     {
         let alert = SmartAdAlertController()
@@ -110,7 +110,7 @@ open class SmartAdAlertController: UIViewController {
             alert.btnCancel.isHidden = false
             
             if SmartAd.IsShowAd(self) {
-                alert.smartAdBanner.isRandomAD   = true
+                alert.smartAdBanner.adType       = adOrder.adType
                 alert.smartAdBanner.googleAdID   = googleID
                 alert.smartAdBanner.facebookAdID = facebookID
                 alert.smartAdBanner.showAd()
@@ -124,10 +124,10 @@ open class SmartAdAlertController: UIViewController {
     }
     
     class func select(_ controller: UIViewController,
+                      adOrder: SmartAdOrder,
+                      googleID: String?, facebookID: String?,
                       title: String,
                       titleOK: String, titleCancel: String,
-                      googleID: String?, facebookID: String?,
-                      isGoogleFirst: Bool = true,
                       completed: @escaping (_ isOK: Bool) -> Void)
     {
         let alert = SmartAdAlertController()
@@ -142,7 +142,7 @@ open class SmartAdAlertController: UIViewController {
             alert.btnCancel.isHidden = false
             
             if SmartAd.IsShowAd(self) {
-                alert.smartAdBanner.isRandomAD   = true
+                alert.smartAdBanner.adType       = adOrder.adType
                 alert.smartAdBanner.googleAdID   = googleID
                 alert.smartAdBanner.facebookAdID = facebookID
                 alert.smartAdBanner.showAd()

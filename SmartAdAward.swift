@@ -11,41 +11,42 @@ import GoogleMobileAds
 import FBAudienceNetwork
 import ShockExtension
 
-protocol SmartAdAwardDelegate: NSObjectProtocol {
-    func smartAdAwardDone(_ type: SmartAdType, _ isAwardShow: Bool, _ isAwardClick: Bool)
+@objc
+public protocol SmartAdAwardDelegate: NSObjectProtocol {
+    func smartAdAwardDone(_ isGoogle: Bool, _ isAwardShow: Bool, _ isAwardClick: Bool)
     func smartAdAwardFail(_ error: Error?)
 }
 
 open class SmartAdAward: NSObject {
-    var delegate    : SmartAdAwardDelegate?
+    fileprivate var delegate        : SmartAdAwardDelegate?
     
-    fileprivate var controller   : UIViewController?
-    fileprivate var googleID     : String?
-    fileprivate var facebookID   : String?
-    fileprivate var isGoogleFirst: Bool = true
-    fileprivate var loadingAlert : UIAlertController?
+    fileprivate var controller      : UIViewController!
+    fileprivate var adType          : SmartAdType!
+    fileprivate var googleID        : String?
+    fileprivate var facebookID      : String?
     
-    fileprivate var isAwardShow  : Bool = false
-    fileprivate var isAwardClick : Bool = false
+    fileprivate var loadingAlert    : UIAlertController?
+    fileprivate var isShowAfterLoad = false
+    
+    fileprivate var isAwardShow     : Bool = false
+    fileprivate var isAwardClick    : Bool = false
     
     fileprivate var fRewardedVideoAd: FBRewardedVideoAd?
     
-    @objc
-    public convenience init(_ controller: UIViewController, googleID: String?, facebookID: String?, isGoogleFirst: Bool = true) {
+    public convenience init(_ controller: UIViewController, adOrder: SmartAdOrder, googleID: String?, facebookID: String?) {
         self.init()
         
         self.controller    = controller
+        self.adType        = adOrder.adType
         self.googleID      = googleID
         self.facebookID    = facebookID
-        self.isGoogleFirst = isGoogleFirst
         self.delegate      = controller as? SmartAdAwardDelegate
     }
     
-    @objc
     public func showAd() {
         if SmartAd.IsShowAd(self) {
             loadingAlert = UIAlertController.loading(controller!, loadingStyle: .gray) { (loading) in
-                if self.isGoogleFirst {
+                if self.adType == .google {
                     self.showGoogle()
                 } else {
                     self.showFacebook()
@@ -78,12 +79,14 @@ extension SmartAdAward: GADRewardBasedVideoAdDelegate {
     
     // 광고 로딩 싫패
     public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd, didFailToLoadWithError error: Error) {
-        if !isGoogleFirst {
+        printLog(error.localizedDescription)
+        
+        if adType == .google {
+            showFacebook()
+        } else {
             loadingAlert?.dismiss(animated: true, completion: {
                 self.delegate?.smartAdAwardFail(error)
             })
-        } else {
-            showFacebook()
         }
     }
     
@@ -94,7 +97,7 @@ extension SmartAdAward: GADRewardBasedVideoAdDelegate {
     
     // 광고가 닫혀야 완료 콜백이 가능하다.
     public func rewardBasedVideoAdDidClose(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
-        delegate?.smartAdAwardDone(.google, isAwardShow, isAwardClick)
+        delegate?.smartAdAwardDone(true, isAwardShow, isAwardClick)
     }
 }
 
@@ -122,12 +125,14 @@ extension SmartAdAward: FBRewardedVideoAdDelegate {
     
     // 광고 로딩 싫패
     public func rewardedVideoAd(_ rewardedVideoAd: FBRewardedVideoAd, didFailWithError error: Error) {
-        if isGoogleFirst {
+        printLog(error.localizedDescription)
+        
+        if adType == .facebook {
+            showGoogle()
+        } else {
             loadingAlert?.dismiss(animated: true, completion: {
                 self.delegate?.smartAdAwardFail(error)
             })
-        } else {
-            showGoogle()
         }
     }
     
@@ -143,11 +148,9 @@ extension SmartAdAward: FBRewardedVideoAdDelegate {
     
     // 광고창을 닫을때 발생 (보상과 상관 없다)
     public func rewardedVideoAdDidClose(_ rewardedVideoAd: FBRewardedVideoAd) {
-        delegate?.smartAdAwardDone(.facebook, isAwardShow, isAwardClick)
+        delegate?.smartAdAwardDone(false, isAwardShow, isAwardClick)
     }
 }
-
-
 
 
 
