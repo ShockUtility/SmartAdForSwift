@@ -121,9 +121,7 @@ var awardAd: SmartAdAward?
 override func viewDidLoad() {
     super.viewDidLoad()
 
-    awardAd = SmartAdAward.init(self, adOrder: .google,
-                                googleID: "googleID",
-                                facebookID: "facebookID")
+    awardAd = SmartAdAward.init(self, adOrder: .google, googleID: "googleID", facebookID: "facebookID")
     awardAd?.showAd()
 }
 ```
