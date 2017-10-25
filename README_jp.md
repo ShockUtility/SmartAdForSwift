@@ -56,7 +56,7 @@ Sourceフォルダのファイルを開発中のプロジェクトに直接追�
 # 使い方
 
 ## SmartAdBanner
-![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_01.png?raw=true)<br>
+![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_01.png?raw=true)
 StoryBoardでビューを追加して、カスタムビューを「SmartAdBanner」に変更した後プロパティのみ設定するコードなしですぐに動作します。<br>
 戻り値を返す受けたい場合には、delegateを設定して、次のようにSmartAdBannerDelegateを実装する。
 ```swift
@@ -147,7 +147,7 @@ public func showAd()
 ```
 
 ## SmartAdAlertController
-
+![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_02.png?raw=true)
 OKボタンだけあるアラート
 ```swift
 SmartAdAlertController.alert(self,
