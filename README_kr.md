@@ -57,7 +57,7 @@ Cocoapods 에 등록하고 싶지만 Google과 Facebook의 SDK같이 스타틱 �
 # 사용법
 
 ## 기본 베너 (SmartAdBanner)
-![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_01.png?raw=true)<br>
+![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_01.png?raw=true)
 StoryBoard 에서 뷰를 추가하고 커스텀 뷰를 'SmartAdBanner' 로 변경 후 프로퍼티만 셋팅하면 코딩 없이 바로 동작 됩니다.<br>
 반환값을 리턴받고 싶은 경우엔 delegate 를 설정하고 다음과 같이 SmartAdBannerDelegate를 구현한다.
 ```swift
@@ -148,7 +148,7 @@ public func showAd()
 ```
 
 ## 얼럿 광고 (SmartAdAlertController)
-
+![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_01.png?raw=true)
 확인 버튼만 있는 알림 얼럿
 ```swift
 SmartAdAlertController.alert(self,
