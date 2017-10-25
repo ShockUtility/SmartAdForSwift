@@ -42,12 +42,12 @@ Cocoapods 에 등록하고 싶지만 Google과 Facebook의 SDK같이 스타틱 �
 
 
 # 지원되는 광고 형식
-## AdMob
+## Google AdMob
 - AdView (기본 베너)
 - InterstitialAd (전면 광고)
 - RewardedVideoAd (보상 광고)
 
-## Audience Network
+## Facebook Audience Network
 - AdView (기본 베너)
 - InterstitialAd (삽입 광고)
 - RewardedVideoAd (보상 광고)
@@ -63,11 +63,11 @@ StoryBoard 에서 뷰를 추가하고 커스텀 뷰를 'SmartAdBanner' 로 변�
 ```swift
 extension ViewController: SmartAdBannerDelegate {
     func smartAdBannerDone(_ view: SmartAdBanner) {
-        // 광고가 표시됨
+        // Success...
     }
 
     func smartAdBannerFail(_ error: Error?) {
-        // 마지막으로 로딩을 시도한 광고의 에러 메세지
+        // Fail...
     }
 }
 ```
@@ -77,85 +77,140 @@ extension ViewController: SmartAdBannerDelegate {
 `* 주의 : SmartAdBanner 는 크기 형식에 따라 최소 넓이가 300 또는 320 보다 커야 정상적으로 표시 됩니다.`
 
 ## 전면 광고 (SmartAdInterstitial)
-전면 광고를 호출하는 가장 간단한 코드는 다음과 같다.
+전면 광고를 호출하는 예제 코드
 ```swift
-smartAdInterstitial = SmartAdInterstitial(self, googleID: "XXXXX", facebookID: "XXXXX")
-smartAdInterstitial?.showAd()
+var interstitialAd: SmartAdInterstitial?
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    interstitialAd = SmartAdInterstitial(self, adOrder: .random,
+                                         googleID: "googleID", facebookID: "facebookID")
+	interstitialAd?.loadAd()
+}
+
 ```
 
-상황에 따라 결과값을 반환 받고 싶을 경우 컨트롤러에 SmartAdInterstitialDelegat를 구현하면 된다
+결과값을 반환 받아야 하는 경우 컨트롤러에 SmartAdInterstitialDelegate 를 구현
 ```swift
 extension ViewController: SmartAdInterstitialDelegate {
     func smartAdInterstitialDone() {
-        // 광고가 표시됨
+        // Success...
     }
     
     func smartAdInterstitialFail(_ error: Error?) {
-        // 마지막으로 로딩을 시도한 광고의 에러 메세지
+        // Fail...
     }
 }
 ```
  
-SmartAdInterstitial 의 showAd 함수는 다음과 같은 파라미터를 추가해서 호출 할 수 있습니다.<br>
-firstDelayMilliseconds : 첫번째 광고 로딩이 성공한 경우 몇초 후에 표기할지를 설정 <br>
-secondDelayMilliseconds : 첫번째 광고 로딩이 실패 했다면 몇초 후에 두번째 광고를 로딩 할지 설정
+SmartAdInterstitial 클래스의 함수들
 ```swift
-func showAd(isGoogleFirst: Bool = true, 
-            firstDelayMilliseconds:Double = 1.5, 
-            secondDelayMilliseconds:Double = 3.0)
+public convenience init(_ controller: UIViewController, adOrder: SmartAdOrder,
+                        googleID: String?, facebookID: String?, isShowAfterLoad: Bool = true)
+public convenience init(_ controller: UIViewController, adOrder: SmartAdOrder,
+                        googleID: String?, facebookID: String?)
+public func loadAd(delayMilliseconds: Double = 0.0)
+public func showAd() -> Bool
 ```
 
 ## 보상 광고 (SmartAdAward)
-Activity 에서 호출하는 가장 간단한 코드는 다음과 같다.
+Activity 에서 호출하는 예제 코드
 ```swift
-smartAdAward = SmartAdAward(self, googleID: "XXXXX", facebookID: nil)
-smartAdAward?.showAd()
+var awardAd: SmartAdAward?
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+    awardAd = SmartAdAward.init(self, adOrder: .google,
+                                googleID: "googleID",
+                                facebookID: "facebookID")
+    awardAd?.showAd()
+}
 ```
 
-보상광고의 결과값을 얻기 위해서 다음과 같은 루틴이 필요하다.
+결과값을 반환 받아야 하는 경우 컨트롤러에 SmartAdAwardDelegate 를 구현
 ```swift
 extension ViewController: SmartAdAwardDelegate {
-    func smartAdAwardDone(_ isAward: Bool) {
-        if isAward {
-            // 광고창이 닫히고 보상이 완료됨
-        } else {
-            // 광고창이 닫히고 보상이 취소됨
-        }
+    func smartAdAwardDone(_ isGoogle: Bool, _ isAwardShow: Bool, _ isAwardClick: Bool) {
+        // Success...
     }
     
     func smartAdAwardFail(_ error: Error?) {
-        // 마지막으로 로딩을 시도한 광고의 에러 메세지
+        // Fail...
     }
 }
 ```
 
+SmartAdAward 클래스의 함수들
+```swift
+public convenience init(_ controller: UIViewController, adOrder: SmartAdOrder,
+                        googleID: String?, facebookID: String?)
+public func showAd()
+```
+
 ## 얼럿 광고 (SmartAdAlertController)
 
-기본적인 알림 얼럿은 다음과 같고 기본 높이 값은 250 이며 상황에 맞게 설정해야 광고가 표시된다.
+확인 버튼만 있는 알림 얼럿
 ```swift
-SmartAdAlertController.cirfirm(self, title: "title", googleID: "XXXXX", facebookID: "XXXXX") { (isOK) in
-    if isOK {
-        self.disconnectHost()
-    }
+SmartAdAlertController.alert(self,
+                            adOrder: .random,
+                            googleID: "googleID",
+                            facebookID: "facebookID",
+                            title: "Alert") { (_) in
+   // Clicked OK
+}
+```
+
+확인/취소 얼럿
+```swift
+SmartAdAlertController.confirm(self,
+                               adOrder: .google,
+                               googleID: "googleID",
+                               facebookID: "facebookID",
+                               title: "Confirm") { (isOK) in
+   if isOK {
+       // Clicked OK
+   } else {
+       // Clicked Cancel
+   }
+}
+```
+
+선택 버튼 커스터마이징 얼럿
+```swift
+SmartAdAlertController.select(self,
+                              adOrder: .facebook,
+                              googleID: "googleID",
+                              facebookID: "facebookID",
+                              title: "Select",
+                              titleOK: "Yes",
+                              titleCancel: "No") { (isOK) in
+   if isOK {
+       // Clicked Yes
+   } else {
+       // Clicked No
+   }
 }
 ```
 
 ## 테스트 장비 추가
 ```swift
-SmartAd.addTestDevice(type: .google, ids: [kGADSimulatorID,"XXXXX"])
+SmartAd.addTestDevice(type: .google, ids: [kGADSimulatorID, "XXXXX"])
 SmartAd.addTestDevice(type: .facebook, ids: ["XXXXX","YYYYY"])
 ```
 
 ## 광고 호출 커스텀 함수 등록
-SmartAd 의 모든 광고 모듈은 광고를 표시하기 전에 SmartAd.IsShowAdFunc 를 참조한다. IsShowAdFunc 는 기본적으로 null 이므로
-모든 광고가 표기되는데 인앱 결제나 특정 상황에서 광고를 중단 시키기 위해서 이 함수를 다음과 같이 커스터마이징 하면 광고 호출을 손쉽게 제어 할 수 있다.
+SmartAd 의 모든 광고 모듈은 광고를 표시하기 전에 SmartAd.IsShowAdFunc 를 참조한다.
+IsShowAdFunc 는 기본적으로 nil 이므로 모든 광고가 표기되는데 인앱 결제나 특정 상황에서 광고를 중단 시키기 위해서
+이 함수를 다음과 같이 커스터마이징 하면 광고 호출을 차단 할 수 있다.
 ```swift
 SmartAd.IsShowAdFunc = { () in
-    // --- 사용자가 임의로 작성함 ---
+    // 사용자의 상황에 맞게 내용을 커스터마이징 하면 된다.
+    // 아래의 경우 SmartAdAward 를 제외한 모든 광고 클래스에 적용한 예다.
     let def = UserDefaults.standard
-    let isShowAd def.bool(forKey: "isShowAd")
-    return ([SmartAdBanner.self, SmartAdInterstitial.self, SmartAdAward.self, SmartAdAlertController.self], isShowAd)
-    // --- 사용자가 임의로 작성함 ---
+    let isShowAd = def.bool(forKey: "isShowAd")
+    return ([SmartAdBanner.self, SmartAdInterstitial.self, SmartAdAlertController.self], isShowAd)
 }
 ```
 
