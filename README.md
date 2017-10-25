@@ -56,7 +56,7 @@ You need to add the files in the Source folder directly to the project you are d
 # Usage
 
 ## SmartAdBanner
-![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_01.png?raw=true)<br>
+![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_01.png?raw=true)
 If you add a view in the StoryBoard, change the custom view to 'SmartAdBanner' and then set the properties only, it will work without coding. <br>
 If you want to return a return value, set the delegate and implement SmartAdBannerDelegate as follows.
 ```swift
@@ -147,7 +147,7 @@ public func showAd()
 ```
 
 ## SmartAdAlertController
-
+![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_02.png?raw=true)
 Alert with OK button only.
 ```swift
 SmartAdAlertController.alert(self,
