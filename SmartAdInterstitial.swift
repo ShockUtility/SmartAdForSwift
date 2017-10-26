@@ -47,7 +47,7 @@ open class SmartAdInterstitial: NSObject {
     }
     
     public convenience init(_ controller: UIViewController, adOrder: SmartAdOrder, googleID: String?, facebookID: String?) {
-        self.init(controller, adOrder: adOrder, googleID: googleID, facebookID: facebookID)
+        self.init(controller, adOrder: adOrder, googleID: googleID, facebookID: facebookID, isShowAfterLoad: true)
     }
     
     public func loadAd(delayMilliseconds: Double = 0.0) {
