@@ -11,8 +11,13 @@
 SmartAd is an easy-to-use library for AdMob and Audience Network advertising frameworks on iOS and Android.
 
 - [SmartAd for Swift](https://github.com/ShockUtility/SmartAdForSwift) -> [Demo Project](https://github.com/ShockUtility/SmartAdDemoForSwift)
+<<<<<<< HEAD
 - [SmartAd for Android](https://github.com/ShockUtility/SmartAdForAndroid)) -> [Demo Project](https://github.com/ShockUtility/SmartAdDemoForAndroid)
 ![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_00.png?raw=true)
+=======
+- [SmartAd for Android](https://github.com/ShockUtility/SmartAdForAndroid) -> [Demo Project](https://github.com/ShockUtility/SmartAdDemoForAndroid)
+
+>>>>>>> 468ef402db048aaa0f489c548a13482fd653cf67
 
 
 # Install
