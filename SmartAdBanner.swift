@@ -9,12 +9,11 @@
 import Foundation
 import GoogleMobileAds
 import FBAudienceNetwork
-import ShockExtension
 
 @objc
 public protocol SmartAdBannerDelegate: NSObjectProtocol {
     func smartAdBannerDone(_ view: SmartAdBanner)
-    func smartAdBannerFail(_ error: Error?)
+    func smartAdBannerFail(_ view: SmartAdBanner, error: Error?)
 }
 
 open class SmartAdBanner: UIView {
@@ -111,7 +110,7 @@ open class SmartAdBanner: UIView {
     
     fileprivate func onFail(_ error: Error?) {
         self.isHidden = isHideAfterFail
-        delegate?.smartAdBannerFail(error)
+        delegate?.smartAdBannerFail(self, error: error)
     }
 }
 
@@ -121,7 +120,7 @@ extension SmartAdBanner: GADBannerViewDelegate {
     }
     
     public func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        printLog(error.localizedDescription)
+        print(error.localizedDescription)
         bannerView.removeFromSuperview()
         bannerView.delegate = nil
         gAdView = nil
@@ -140,7 +139,7 @@ extension SmartAdBanner: FBAdViewDelegate {
     }
     
     public func adView(_ adView: FBAdView, didFailWithError error: Error) {
-        printLog(error.localizedDescription)
+        print(error.localizedDescription)
         adView.removeFromSuperview()
         adView.delegate = nil
         fAdView = nil

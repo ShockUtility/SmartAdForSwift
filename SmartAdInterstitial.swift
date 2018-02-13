@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import GoogleMobileAds
 import FBAudienceNetwork
-import ShockExtension
 
 @objc
 public protocol SmartAdInterstitialDelegate: NSObjectProtocol {
@@ -97,7 +96,7 @@ extension SmartAdInterstitial: GADInterstitialDelegate {
     }
     
     public func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
-        printLog(error.localizedDescription)
+        print(error.localizedDescription)
         
         if adType == .google {
             self.loadFacebook()
@@ -125,7 +124,7 @@ extension SmartAdInterstitial: FBInterstitialAdDelegate {
     }
     
     public func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
-        printLog(error.localizedDescription)
+        print(error.localizedDescription)
         
         if adType == .facebook {
             self.loadGoogle()
