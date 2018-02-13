@@ -9,6 +9,7 @@
 import Foundation
 import GoogleMobileAds
 import FBAudienceNetwork
+import ShockExtension
 
 @objc
 public protocol SmartAdAwardDelegate: NSObjectProtocol {
@@ -78,7 +79,7 @@ extension SmartAdAward: GADRewardBasedVideoAdDelegate {
     
     // 광고 로딩 싫패
     public func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd, didFailToLoadWithError error: Error) {
-        print(error.localizedDescription)
+        printLog(error.localizedDescription)
         
         if adType == .google {
             showFacebook()
@@ -124,7 +125,7 @@ extension SmartAdAward: FBRewardedVideoAdDelegate {
     
     // 광고 로딩 싫패
     public func rewardedVideoAd(_ rewardedVideoAd: FBRewardedVideoAd, didFailWithError error: Error) {
-        print(error.localizedDescription)
+        printLog(error.localizedDescription)
         
         if adType == .facebook {
             showGoogle()
