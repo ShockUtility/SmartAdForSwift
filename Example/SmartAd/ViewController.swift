@@ -31,12 +31,13 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Setup Test Device
         SmartAd.addTestDevice(type: .google, ids: [kGADSimulatorID, "8ad81dda0c1e608aad8eddf174ea98b4"])
         SmartAd.addTestDevice(type: .facebook, ids: [])
         
         SmartAd.IsShowAdFunc = { () in
             let isShowAd = self.swEnableAd.isOn
-            return ([SmartAdBanner.self, SmartAdInterstitial.self, SmartAdAlertController.self], isShowAd)
+            return ([SmartAdBanner.self, SmartAdInterstitial.self, SmartAdAward.self, SmartAdAlertController.self], isShowAd)
         }
     }
     
