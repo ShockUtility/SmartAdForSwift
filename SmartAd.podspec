@@ -30,3 +30,6 @@ SmartAd is an easy-to-use library for AdMob and Audience Network advertising fra
   s.dependency 'Firebase/AdMob'
   s.dependency 'FBAudienceNetwork'
 end
+
+# 새로운 버전 생성 후 github.com 에서 릴리스 버전 생성하고 다음의 커맨드로 배포해야된다
+# pod trunk push SmartAd.podspec --verbose           --allow-warnings
