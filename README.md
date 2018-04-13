@@ -15,8 +15,11 @@ SmartAd is an easy-to-use library for AdMob and Audience Network advertising fra
 ![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_00.png?raw=true)
 
 # Install
-```code
-You need to add the files in the Source folder directly to the project you are developing.
+SmartAd is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod 'SmartAd'
 ```
 
 
