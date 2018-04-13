@@ -24,6 +24,8 @@
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		6BABE7F620812E1B004FD6F1 /* README_jp.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README_jp.md; path = ../README_jp.md; sourceTree = "<group>"; };
+		6BABE7F720812E1B004FD6F1 /* README_kr.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README_kr.md; path = ../README_kr.md; sourceTree = "<group>"; };
 		81C7ED692053EBE7AEE4266B /* Pods-SmartAd_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAd_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAd_Example/Pods-SmartAd_Example.release.xcconfig"; sourceTree = "<group>"; };
 		829219B50A339990F09A0BB4 /* Pods-SmartAd_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAd_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAd_Tests/Pods-SmartAd_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		957D61A9DA5C29C0BA585429 /* Pods_SmartAd_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartAd_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +114,8 @@
 			children = (
 				BB56B5B420237D6249AFCAD7 /* SmartAd.podspec */,
 				A3649ACA4622A90F996DACDA /* README.md */,
+				6BABE7F620812E1B004FD6F1 /* README_jp.md */,
+				6BABE7F720812E1B004FD6F1 /* README_kr.md */,
 				2012A40FDA4D4BC221238AC2 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
@@ -232,13 +236,11 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SmartAd_Example/Pods-SmartAd_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

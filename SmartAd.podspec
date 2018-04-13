@@ -9,15 +9,15 @@
 Pod::Spec.new do |s|
   s.name             = 'SmartAd'
   s.version          = '0.1.0'
-  s.summary          = 'SmartAd.'
+  s.summary          = 'SmartAd is an easy-to-use library for Google AdMob and Facebook advertising frameworks.'
   s.description      = <<-DESC
-Add long description of the pod here.
+SmartAd is an easy-to-use library for AdMob and Audience Network advertising frameworks on iOS and Android.
                        DESC
 
-  s.homepage         = 'https://github.com/ShockUtility/SmartAd'
+  s.homepage         = 'https://github.com/ShockUtility/SmartAdForSwift'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'ShockUtility' => 'shock@docs.kr' }
-  s.source           = { :git => 'https://github.com/ShockUtility/SmartAd.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/ShockUtility/SmartAdForSwift.git', :tag => s.version.to_s }
   s.swift_version    = '4.0'
   s.ios.deployment_target = '9.0'
   s.source_files = 'SmartAd/Classes/**/*'
@@ -27,7 +27,6 @@ Add long description of the pod here.
 
   s.static_framework = true
   s.dependency 'Firebase/Core'
-  s.dependency 'Firebase/Messaging'
   s.dependency 'Firebase/AdMob'
   s.dependency 'FBAudienceNetwork'
 end

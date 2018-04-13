@@ -10,34 +10,33 @@
 # SmartAd 소개
 SmartAd 는 iOS 와 Android 에서 AdMob 과 Audience Network 광고 프레임웍을 간편하게 사용하기 위한 라이브러리 입니다.
 
-- [SmartAd for Swift](https://github.com/ShockUtility/SmartAdForSwift) -> [Demo Project](https://github.com/ShockUtility/SmartAdDemoForSwift)
+- [SmartAd for Swift](https://github.com/ShockUtility/SmartAdForSwift)
 - [SmartAd for Android](https://github.com/ShockUtility/SmartAdForAndroid) -> [Demo Project](https://github.com/ShockUtility/SmartAdDemoForAndroid)
 ![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_00.png?raw=true)
 
 
 # 설치
-```code
-Source 폴더의 파일들을 개발중인 프로젝트에 직접 추가해서 사용해야 합니다.
-Cocoapods 에 등록하고 싶지만 Google과 Facebook의 SDK같이 스타틱 라이브러리를 포함한 프로젝트를 Cocoapods 으로 등록하는 방법을 모르겠습니다. 아시는분 연락 주세요~
+```ruby
+pod 'SmartAd'
 ```
 
 
 
 # 의존성
 ```code
-  pod 'Google-Mobile-Ads-SDK'
-  pod 'FBAudienceNetwork'
-  pod 'ShockExtension'  
+pod 'Firebase/Core'
+pod 'Firebase/AdMob'
+pod 'FBAudienceNetwork'
 ```
 
 
 
 # 개발환경
-- XCode 9.0
+- XCode 9.3
 - Swift4
-- Google-Mobile-Ads-SDK (7.23.0)
-- FBAudienceNetwork (4.25.0)
-- ShockExtension (0.7.3)
+- FirebaseCore (4.0.19)
+- Google-Mobile-Ads-SDK (7.30.0)
+- FBAudienceNetwork (4.28.1)
 
 
 

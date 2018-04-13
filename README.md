@@ -10,7 +10,7 @@
 # SmartAd
 SmartAd is an easy-to-use library for AdMob and Audience Network advertising frameworks on iOS and Android.
 
-- [SmartAd for Swift](https://github.com/ShockUtility/SmartAdForSwift) -> [Demo Project](https://github.com/ShockUtility/SmartAdDemoForSwift)
+- [SmartAd for Swift](https://github.com/ShockUtility/SmartAdForSwift) 
 - [SmartAd for Android](https://github.com/ShockUtility/SmartAdForAndroid) -> [Demo Project](https://github.com/ShockUtility/SmartAdDemoForAndroid)
 ![Screenshot](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/screen_00.png?raw=true)
 
@@ -26,19 +26,19 @@ pod 'SmartAd'
 
 # Dependencies
 ```code
-  pod 'Google-Mobile-Ads-SDK'
-  pod 'FBAudienceNetwork'
-  pod 'ShockExtension'  
+pod 'Firebase/Core'
+pod 'Firebase/AdMob'
+pod 'FBAudienceNetwork'
 ```
 
 
 
 # Development environment
-- XCode 9.0
+- XCode 9.3
 - Swift4
-- Google-Mobile-Ads-SDK (7.23.0)
-- FBAudienceNetwork (4.25.0)
-- ShockExtension (0.7.3)
+- FirebaseCore (4.0.19)
+- Google-Mobile-Ads-SDK (7.30.0)
+- FBAudienceNetwork (4.28.1)
 
 
 

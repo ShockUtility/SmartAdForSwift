@@ -5,7 +5,6 @@ target 'SmartAd_Example' do
     pod 'SmartAd', :path => '../'
 
     pod 'Firebase/Core'
-    pod 'Firebase/Messaging'
     pod 'Firebase/AdMob'
     pod 'FBAudienceNetwork'
 end
