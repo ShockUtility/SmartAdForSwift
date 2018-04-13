@@ -12,7 +12,7 @@ import FBAudienceNetwork
 @objc
 public protocol SmartAdBannerDelegate: NSObjectProtocol {
     func smartAdBannerDone(_ view: SmartAdBanner)
-    func smartAdBannerFail(_ error: Error?)
+    func smartAdBannerFail(_ view: SmartAdBanner, error: Error?)
 }
 
 public class SmartAdBanner: UIView {
@@ -109,7 +109,7 @@ public class SmartAdBanner: UIView {
     
     fileprivate func onFail(_ error: Error?) {
         self.isHidden = isHideAfterFail
-        delegate?.smartAdBannerFail(error)
+        delegate?.smartAdBannerFail(self, error: error)
     }
 }
 

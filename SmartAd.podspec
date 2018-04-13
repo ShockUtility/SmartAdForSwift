@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SmartAd'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'SmartAd is an easy-to-use library for Google AdMob and Facebook advertising frameworks.'
   s.description      = <<-DESC
 SmartAd is an easy-to-use library for AdMob and Audience Network advertising frameworks on iOS and Android.

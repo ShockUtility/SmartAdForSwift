@@ -167,7 +167,7 @@ extension SmartAdAlertController: SmartAdBannerDelegate {
         vwLoading.isHidden = true
     }
     
-    public func smartAdBannerFail(_ error: Error?) {
+    public func smartAdBannerFail(_ view: SmartAdBanner, error: Error?) {
         bannerHeight.constant = 0
         btnOK.isEnabled = true
         btnCancel.isEnabled = true
