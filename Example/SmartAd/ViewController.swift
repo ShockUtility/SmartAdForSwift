@@ -10,8 +10,11 @@ import UIKit
 import SmartAd
 import GoogleMobileAds
 
-let AD_GOOGLE_ID   = "ca-app-pub-3940256099942544/2934735716"
-let AD_FACEBOOK_ID = "YOUR_PLACEMENT_ID"
+let AD_G_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/4411468910"
+let AD_G_AWARD_ID        = "ca-app-pub-3940256099942544/1712485313"
+let AD_G_ALERT_ID        = "ca-app-pub-3940256099942544/2934735716"
+
+let AD_FACEBOOK_ID       = "YOUR_PLACEMENT_ID"
 
 class ViewController: UITableViewController {
     
@@ -66,7 +69,7 @@ class ViewController: UITableViewController {
 
 extension ViewController: SmartAdInterstitialDelegate {
     func showInterstitial() {
-        interstitialAd = SmartAdInterstitial(self, adOrder: adOrder, googleID: AD_GOOGLE_ID, facebookID: AD_FACEBOOK_ID)
+        interstitialAd = SmartAdInterstitial(self, adOrder: adOrder, googleID: AD_G_INTERSTITIAL_ID, facebookID: AD_FACEBOOK_ID)
         interstitialAd?.loadAd()
     }
     
@@ -83,7 +86,7 @@ extension ViewController: SmartAdInterstitialDelegate {
 
 extension ViewController: SmartAdAwardDelegate {
     func showAward() {
-        awardAd = SmartAdAward.init(self, adOrder: adOrder, googleID: AD_GOOGLE_ID, facebookID: AD_FACEBOOK_ID)
+        awardAd = SmartAdAward.init(self, adOrder: adOrder, googleID: AD_G_AWARD_ID, facebookID: AD_FACEBOOK_ID)
         awardAd?.showAd()
     }
     
@@ -100,14 +103,14 @@ extension ViewController: SmartAdAwardDelegate {
 
 extension ViewController {
     func showAlert() {
-        SmartAdAlertController.alert(self, adOrder: adOrder, googleID: AD_GOOGLE_ID, facebookID: AD_FACEBOOK_ID,
+        SmartAdAlertController.alert(self, adOrder: adOrder, googleID: AD_G_ALERT_ID, facebookID: AD_FACEBOOK_ID,
                                      title: "Alert") { (_) in
             print("Complated : SmartAdAlertController.alert")
         }
     }
     
     func showConfirm() {
-        SmartAdAlertController.confirm(self, adOrder: adOrder, googleID: AD_GOOGLE_ID, facebookID: AD_FACEBOOK_ID,
+        SmartAdAlertController.confirm(self, adOrder: adOrder, googleID: AD_G_ALERT_ID, facebookID: AD_FACEBOOK_ID,
                                        title: "Confirm") { (isOK) in
             if isOK {
                 print("Complated : SmartAdAlertController.confirm [OK]")
@@ -118,7 +121,7 @@ extension ViewController {
     }
     
     func showSelect() {
-        SmartAdAlertController.select(self, adOrder: adOrder, googleID: AD_GOOGLE_ID, facebookID: AD_FACEBOOK_ID,
+        SmartAdAlertController.select(self, adOrder: adOrder, googleID: AD_G_ALERT_ID, facebookID: AD_FACEBOOK_ID,
                                       title: "Select", titleOK: "Yes", titleCancel: "No") { (isOK) in
             if isOK {
                 print("Complated : SmartAdAlertController.select [Yes]")
