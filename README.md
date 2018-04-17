@@ -1,5 +1,5 @@
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/Platform-iOS-green.svg)](https://developer.apple.com/swift)
+[![License](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/MIT.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/iOS.svg)](https://developer.apple.com/swift)
 [![GitHub release](https://img.shields.io/github/release/ShockUtility/SmartAdForSwift.svg)](https://github.com/ShockUtility/SmartAdForSwift)
 [![English](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/en.png?raw=true)](https://github.com/ShockUtility/SmartAdForSwift)
 [![Korea](https://github.com/ShockUtility/SmartAdForSwift/blob/master/res/kr.png?raw=true)](https://github.com/ShockUtility/SmartAdForSwift/blob/master/README_kr.md)
