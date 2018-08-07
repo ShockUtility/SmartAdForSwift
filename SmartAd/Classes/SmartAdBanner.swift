@@ -111,6 +111,10 @@ public class SmartAdBanner: UIView {
         self.isHidden = isHideAfterFail
         delegate?.smartAdBannerFail(self, error: error)
     }
+    
+    public func isShowAd() -> Bool {
+        return gAdView != nil || fAdView != nil
+    }
 }
 
 
