@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SmartAd'
-  s.version          = '0.1.8'
+  s.version          = '0.1.9'
   s.summary          = 'SmartAd is an easy-to-use library for Google AdMob and Facebook advertising frameworks.'
   s.description      = <<-DESC
 SmartAd is an easy-to-use library for AdMob and Audience Network advertising frameworks on iOS and Android.
@@ -18,7 +18,7 @@ SmartAd is an easy-to-use library for AdMob and Audience Network advertising fra
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'ShockUtility' => 'shock@docs.kr' }
   s.source           = { :git => 'https://github.com/ShockUtility/SmartAdForSwift.git', :tag => s.version.to_s }
-  s.swift_version    = '4.0'
+  s.swift_version    = '4.2'
   s.ios.deployment_target = '9.0'
   s.source_files = 'SmartAd/Classes/**/*'
   s.resource_bundles = {
