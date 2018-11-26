@@ -13,9 +13,9 @@ public extension UIAlertController {
     // 로딩 얼럿
     @discardableResult
     class func ad_loading(_ controller: UIViewController,
-                       loadingStyle: UIActivityIndicatorViewStyle,
-                       title: String? = NSLocalizedString("Loading", comment: ""),
-                       completed: ((_ alert: UIAlertController) -> Void)?) -> UIAlertController
+                          loadingStyle: UIActivityIndicatorView.Style,
+                          title: String? = NSLocalizedString("Loading", comment: ""),
+                          completed: ((_ alert: UIAlertController) -> Void)?) -> UIAlertController
     {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alert.addLoadingView(loadingStyle: loadingStyle)
@@ -30,16 +30,16 @@ public extension UIAlertController {
     }
     
     // 로딩 뷰를 추가해 준다
-    fileprivate func addLoadingView(loadingStyle: UIActivityIndicatorViewStyle, viewHeight:CGFloat = 100, yPositon:CGFloat = 1.4) {
+    fileprivate func addLoadingView(loadingStyle: UIActivityIndicatorView.Style, viewHeight:CGFloat = 100, yPositon:CGFloat = 1.4) {
         // 얼럿 높이 수정
-        let height: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.height,
-                                                            relatedBy: NSLayoutRelation.equal,
-                                                            toItem: nil, attribute: NSLayoutAttribute.notAnAttribute,
+        let height: NSLayoutConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutConstraint.Attribute.height,
+                                                            relatedBy: NSLayoutConstraint.Relation.equal,
+                                                            toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
                                                             multiplier: 1, constant: viewHeight)
         self.view.addConstraint(height)
         
         // 인디케이터 추가
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: loadingStyle)
+        let activityIndicator = UIActivityIndicatorView(style: loadingStyle)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.tag = 999
         self.view.addSubview(activityIndicator)

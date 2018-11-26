@@ -64,7 +64,7 @@ open class SmartAd: NSObject {
     
     // 광고를 실행하거나 막기 위해서 커스텀 평션을 만들어서 붙여줄 수 있다
     // 예) 광고 구매 인앱을 결제한 경우 다음 함수를 대입해 주면 광고가 차단된다.    
-    open static var IsShowAdFunc: (() -> (validClasses:[AnyClass], isShow: Bool))?
+    public static var IsShowAdFunc: (() -> (validClasses:[AnyClass], isShow: Bool))?
     open class func IsShowAd(_ owner: AnyObject) -> Bool {
         if let ret = IsShowAdFunc?() {                                              // 함수가 존재한다.
             if ret.validClasses.contains(where: { owner.classForCoder == $0 }) {    // 적용 클래스에 포함되어 있다면

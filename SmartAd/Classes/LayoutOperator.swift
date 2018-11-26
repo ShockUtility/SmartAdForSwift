@@ -61,7 +61,7 @@ public func |-|(view: UIView, rhs:(format:String, views:[Any])) {
     
     view.addConstraints(NSLayoutConstraint.constraints(
         withVisualFormat: rhs.format,
-        options: NSLayoutFormatOptions(rawValue: 0),
+        options: NSLayoutConstraint.FormatOptions(rawValue: 0),
         metrics: nil,
         views: views))
 }
