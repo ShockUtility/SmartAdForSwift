@@ -16,7 +16,7 @@ public protocol SmartAdBannerDelegate: NSObjectProtocol {
 }
 
 public class SmartAdBanner: UIView {
-
+    
     @IBOutlet open weak var delegate: SmartAdBannerDelegate?
     
     @IBInspectable public var adOrderString      : String?  {
@@ -33,6 +33,8 @@ public class SmartAdBanner: UIView {
     public var adType          : SmartAdType = SmartAdOrder.random.adType
     fileprivate var gAdView    : GADBannerView?
     fileprivate var fAdView    : FBAdView?
+    
+    fileprivate var isGoogle = false
     
     fileprivate lazy var rootController: UIViewController? = {
         var responder: UIResponder? = self
@@ -73,6 +75,8 @@ public class SmartAdBanner: UIView {
                     gAdView.rootViewController = rootController
                     gAdView.adUnitID = gID
                     self <<== gAdView
+                    self.bringSubviewToFront(gAdView)
+                    self.layoutIfNeeded()
                 }
             }
             
@@ -81,6 +85,8 @@ public class SmartAdBanner: UIView {
                 if let fAdView = fAdView {
                     fAdView.delegate = self
                     self <<== fAdView
+                    self.bringSubviewToFront(fAdView)
+                    self.layoutIfNeeded()
                 }
             }
             
@@ -102,6 +108,7 @@ public class SmartAdBanner: UIView {
         if isAutoHeight {
             if let constraint = (constraints.filter{$0.firstAttribute == .height}.first) {
                 constraint.constant = adHeight
+                self.fAdView?.isHidden = isGoogle
             }
         }
         delegate?.smartAdBannerDone(self)
@@ -120,6 +127,7 @@ public class SmartAdBanner: UIView {
 
 extension SmartAdBanner: GADBannerViewDelegate {
     public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        self.isGoogle = true
         onDone(adHeight: bannerView.adSize.size.height)
     }
     
@@ -138,6 +146,7 @@ extension SmartAdBanner: GADBannerViewDelegate {
 
 extension SmartAdBanner: FBAdViewDelegate {
     public func adViewDidLoad(_ adView: FBAdView) {
+        self.isGoogle = false
         onDone(adHeight: fbAdSize.size.height)
     }
     
@@ -153,4 +162,3 @@ extension SmartAdBanner: FBAdViewDelegate {
         }
     }
 }
-
